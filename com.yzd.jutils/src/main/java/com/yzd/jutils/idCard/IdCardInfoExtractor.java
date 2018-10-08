@@ -1,7 +1,12 @@
 package com.yzd.jutils.idCard;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by zd.yao on 2017/4/26.
@@ -148,7 +153,7 @@ public class IdCardInfoExtractor {
     }
 
     public static void main(String[] args) {
-        String idCard = "220282198512104114";
+		String idCard = "142625199209264319";
         IdCardInfoExtractor id = new IdCardInfoExtractor(idCard);
         System.out.println(id.toString());
     }
