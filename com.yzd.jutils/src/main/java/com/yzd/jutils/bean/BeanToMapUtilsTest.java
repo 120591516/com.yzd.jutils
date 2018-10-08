@@ -1,8 +1,10 @@
 package com.yzd.jutils.bean;
 
-import com.yzd.jutils.print.PrintUtil;
-
+import java.util.HashMap;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSONObject;
+import com.yzd.jutils.print.PrintUtil;
 
 /**
  * Created by zd.yao on 2017/6/15.
@@ -19,5 +21,10 @@ public class BeanToMapUtilsTest {
         person.setName("name");
         Map<String,Object> map= BeanToMapUtils.convertBean(person);
         PrintUtil.outLn(map);
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("age1", "1");
+		dataMap.put("name", "name");
+		Person Person = (Person) BeanToMapUtils.convertMap(Person.class, dataMap);
+		System.out.println(JSONObject.toJSON(Person));
     }
 }
