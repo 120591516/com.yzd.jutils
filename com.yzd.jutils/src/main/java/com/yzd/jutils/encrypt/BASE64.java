@@ -4,7 +4,7 @@ package com.yzd.jutils.encrypt;
 import java.io.UnsupportedEncodingException;
 
 /**
- * @author dataochen
+ * @author wangwt
  * @Description
  * @date: 2017/11/7 18:12
  */

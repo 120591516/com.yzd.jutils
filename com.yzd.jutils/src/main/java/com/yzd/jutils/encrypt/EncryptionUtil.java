@@ -28,7 +28,7 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 /**
- * @author dataochen
+ * @author wangwt
  * @Description 各种加密工具类
  * @date: 2017/11/7 18:11
  */

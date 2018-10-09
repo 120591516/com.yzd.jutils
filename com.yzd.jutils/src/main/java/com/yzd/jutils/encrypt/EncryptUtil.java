@@ -1,11 +1,12 @@
 package com.yzd.jutils.encrypt;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  *加密解密工具类
@@ -13,12 +14,32 @@ import java.security.NoSuchAlgorithmException;
  * Created by Administrator on 2016/10/13.
  */
 public class EncryptUtil {
-    /**
-     * 进行MD5加密
-     *
-     * @param info 要加密的信息
-     * @return String 加密后的字符串
-     */
+
+	public static EncryptUtil me;
+
+	public EncryptUtil() {
+		// 单例
+	}
+
+	// 双重锁
+	public static EncryptUtil getInstance() {
+		if (me == null) {
+			synchronized (EncryptUtil.class) {
+				if (me == null) {
+					me = new EncryptUtil();
+				}
+			}
+		}
+		return me;
+	}
+
+	/**
+	 * 进行MD5加密
+	 *
+	 * @param info
+	 *            要加密的信息
+	 * @return String 加密后的字符串
+	 */
     public String encryptToMD5(String info) {
         byte[] digesta = null;
         try {
