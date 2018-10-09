@@ -11,7 +11,7 @@ public class ExeUtil {
             //final String command = "notepad";// 记事本
             process = runtime.exec(String.format("\"%s\"",command));
         } catch (final Exception e) {
-            System.out.println("Error win exec!");
+			System.out.println("Error win exec!!");
         }
     }
     public static void openWindowsExeCMD(final String command) {
@@ -24,4 +24,9 @@ public class ExeUtil {
             System.out.println("Error win exec!");
         }
     }
+
+	public static void main(String[] args) {
+		openWindowsExe("ping 10.33.48.1 -t");
+		openWindowsExeCMD("ping 10.33.48.1 -t");
+	}
 }
