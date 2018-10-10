@@ -22,7 +22,7 @@ public class LocalIpAddressUtil {
     /**
      * 获取本地ip地址，有可能会有多个地址, 若有多个网卡则会搜集多个网卡的ip地址
      */
-    public static Set<InetAddress> resolveLocalAddresses() {
+	public static Set<InetAddress> resolveLocalAddresses(String ethNum) {
         Set<InetAddress> addrs = new HashSet<InetAddress>();
         Enumeration<NetworkInterface> ns = null;
         try {
@@ -33,7 +33,8 @@ public class LocalIpAddressUtil {
         while (ns != null && ns.hasMoreElements()) {
             NetworkInterface n = ns.nextElement();
             Enumeration<InetAddress> is = n.getInetAddresses();
-            while (is.hasMoreElements()) {
+			while (is.hasMoreElements() && n.getName().contains(ethNum)) {
+
                 InetAddress i = is.nextElement();
                 if (!i.isLoopbackAddress() && !i.isLinkLocalAddress() && !i.isMulticastAddress()
                         && !isSpecialIp(i.getHostAddress())) addrs.add(i);
@@ -42,8 +43,8 @@ public class LocalIpAddressUtil {
         return addrs;
     }
 
-    public static Set<String> resolveLocalIps() {
-        Set<InetAddress> addrs = resolveLocalAddresses();
+	public static Set<String> resolveLocalIps(String ethNum) {
+		Set<InetAddress> addrs = resolveLocalAddresses(ethNum);
         Set<String> ret = new HashSet<String>();
         for (InetAddress addr : addrs)
             ret.add(addr.getHostAddress());
@@ -53,8 +54,8 @@ public class LocalIpAddressUtil {
     /**
      * 取得当前机器的address信息，若有多个则随机选一个
      */
-    public static InetAddress resolveLocalAddress() {
-        Set<InetAddress> addrs = resolveLocalAddresses();
+    public static InetAddress resolveLocalAddress(String ethNum) {
+		Set<InetAddress> addrs = resolveLocalAddresses(ethNum);
         if (addrs != null && !addrs.isEmpty()) return addrs.iterator().next();
         return null;
     }
@@ -72,7 +73,7 @@ public class LocalIpAddressUtil {
      * @param args
      */
     public static void main(String[] args) {
-        Set<String> addrs =LocalIpAddressUtil.resolveLocalIps();
+		Set<String> addrs = LocalIpAddressUtil.resolveLocalIps("vmware");
         for (String addr : addrs){
             System.out.println(addr);
         }
