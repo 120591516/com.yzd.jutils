@@ -13,12 +13,11 @@ import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anrong.core.entity.Entity;
-import com.anrong.thirdQuery.adapter.Base64;
-import com.itextpdf.text.pdf.qrcode.ByteArray;
+import com.sun.mail.iap.ByteArray;
 /**
  * 资源服务放回数据解析（数据格式 XML）
  * @author ytao
@@ -178,7 +177,7 @@ public class XMLUtils {
 				md.invoke(object, propValue);
 			}else if (types[0].equals(byte[].class) || types[0].equals(ByteArray.class) ) {
 				//blob字段需要Base64解码
-				md.invoke(object, Base64.decode(propValue.toString()));
+				md.invoke(object, java.util.Base64.getDecoder().decode(propValue.toString()));
 			} else if (types[0].equals(int.class) || types[0].equals(Integer.class)) {
 				md.invoke(object, Integer.valueOf(propValue.toString()));
 			} else if (types[0].equals(long.class) || types[0].equals(Long.class) ) {

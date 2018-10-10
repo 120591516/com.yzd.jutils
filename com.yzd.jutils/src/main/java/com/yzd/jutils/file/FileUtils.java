@@ -1,19 +1,8 @@
 package com.yzd.jutils.file;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.Response;
-
-import org.aspectj.weaver.ast.Call;
-import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
