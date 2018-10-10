@@ -25,6 +25,7 @@ public class XmlUtil2 {
             throw new RuntimeException(e);
         }
     }
+    
     @SuppressWarnings("unchecked")
     public static <T> T fromXML(String xml, Class<T> valueType) {
         try {
