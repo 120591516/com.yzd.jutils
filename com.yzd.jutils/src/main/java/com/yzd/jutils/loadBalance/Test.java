@@ -30,6 +30,6 @@ public class Test {
                     RoundRobin2.getServer();
             }
         });
-       System.out.print(RoundRobin.getServer());
+		System.out.print(RoundRobin2.getServer());
     }
 }

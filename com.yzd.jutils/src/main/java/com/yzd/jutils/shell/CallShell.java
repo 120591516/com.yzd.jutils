@@ -29,8 +29,6 @@ public class CallShell {
 			BufferedReader strCon = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line;
 			while ((line = strCon.readLine()) != null) {
-				System.out.println(process.waitFor());
-				System.out.println("是否已经完成：" + (process.waitFor() == 0 ? true : false));
 				System.out.println("java print:" + line);
 			}
 		} catch (Exception e) {
