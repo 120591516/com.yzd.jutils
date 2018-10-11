@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class SevenZUtils {
 	/**
-	 * @author kxl
+	 * @author wangwenteng
 	 * @param orgPath
 	 *            源压缩文件地址
 	 * @param tarpath
