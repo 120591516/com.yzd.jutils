@@ -73,7 +73,7 @@ public class LocalIpAddressUtil {
      * @param args
      */
     public static void main(String[] args) {
-		Set<String> addrs = LocalIpAddressUtil.resolveLocalIps("vmware");
+		Set<String> addrs = LocalIpAddressUtil.resolveLocalIps("ens33");
         for (String addr : addrs){
             System.out.println(addr);
         }

@@ -1,7 +1,6 @@
 package com.yzd.jutils.shell;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
@@ -30,11 +29,25 @@ public class CallShell {
 			BufferedReader strCon = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line;
 			while ((line = strCon.readLine()) != null) {
+				System.out.println(process.waitFor());
+				System.out.println("是否已经完成：" + (process.waitFor() == 0 ? true : false));
 				System.out.println("java print:" + line);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	public static void callShell(String shellString) {
+		try {
+			Process process = Runtime.getRuntime().exec(shellString);
+			int exitValue = process.waitFor();
+			if (0 != exitValue) {
+				System.err.println("call shell failed. error code is :" + exitValue);
+			}
+		} catch (Throwable e) {
+			System.err.println("call shell failed. " + e);
 		}
 	}
 }
