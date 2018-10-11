@@ -96,7 +96,8 @@ public class CompressFileUits {
 						File fol = new File(dstDirectoryPath + File.separator + fh.getFileNameString());
 						fol.mkdirs();
 					} else { // 文件
-						File out = new File(dstDirectoryPath + File.separator + fh.getFileNameString().trim());
+						System.out.println(fh.getFileNameW());
+						File out = new File(dstDirectoryPath + File.separator + fh.getFileNameW().trim());
 						// System.out.println(out.getAbsolutePath());
 						try {// 之所以这么写try，是因为万一这里面有了异常，不影响继续解压.
 							if (!out.exists()) {
@@ -122,6 +123,6 @@ public class CompressFileUits {
 	}
 
 	public static void main(String[] args) throws Exception {
-		unZipFiles("D:\\ceshi.zip", "D:\\ceshi");
+		unRarFile("D:\\测试照片\\Security(1).rar", "D:\\测试照片\\测试照片");
 	}
 }
