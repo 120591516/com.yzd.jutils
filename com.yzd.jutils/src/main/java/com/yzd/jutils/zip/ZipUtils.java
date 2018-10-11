@@ -228,7 +228,7 @@ public class ZipUtils {
 	}
 
 	public static void main(String[] args) {
-		String zipFilePath = "C:\\Users\\libc\\AppData\\Local\\Temp\\tomcat-docbase.1875074549499164457.8080\\upload/face/cdd43b40-6303-43bc-89fd-a4534a3cb6db.zip";
+		String zipFilePath = "D:\\测试照片\\测试照片.zip";
 		String unzipFilePath = "D:\\测试照片\\测试照片";
 		try {
 			unzip(zipFilePath, unzipFilePath, false);
