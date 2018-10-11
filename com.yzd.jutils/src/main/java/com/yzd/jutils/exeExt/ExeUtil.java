@@ -26,7 +26,7 @@ public class ExeUtil {
     }
 
 	public static void main(String[] args) {
-		openWindowsExe("ping 10.33.48.1 -t");
+		openWindowsExe("");
 		openWindowsExeCMD("ping 10.33.48.1 -t");
 	}
 }
