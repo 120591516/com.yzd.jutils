@@ -58,7 +58,7 @@ public class FileBase64ConvertUitl {
 	public static void main(String[] args) {
 		try {
 			String base64Code = encodeBase64File("D:/测试照片/11.jpg");
-			System.out.println(encodeBase64File("D:/测试照片/11.jpg"));
+			System.out.println(encodeBase64File("D:/测试照片/ef1c34fc-7ae9-4acc-b715-0c621d46f697.jpg"));
 			// System.out.println(encodeBase64File("D:/测试照片/生活照.jpg"));
 			toFile(base64Code, "D:\\three.txt");
 		} catch (Exception e) {

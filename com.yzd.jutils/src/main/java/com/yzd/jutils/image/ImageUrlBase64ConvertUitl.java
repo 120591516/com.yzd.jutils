@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import sun.misc.BASE64Encoder;
+import java.util.Base64;
 
 public class ImageUrlBase64ConvertUitl {
 
@@ -17,12 +16,14 @@ public class ImageUrlBase64ConvertUitl {
 	* @return
 	* @throws BusinessException
 	*/
-	public static String encodeImageToBase64(URL url) throws Exception {
+	public static String encodeImageToBase64(String imageUrl) throws Exception {
 		// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
-		System.out.println("图片的路径为:" + url.toString());
+		System.out.println("图片的路径为:" + imageUrl.toString());
 		// 打开链接
 		HttpURLConnection conn = null;
+		URL url = null;
 		try {
+			url = new URL(imageUrl);
 			conn = (HttpURLConnection) url.openConnection();
 			// 设置请求方式为"GET"
 			conn.setRequestMethod("GET");
@@ -45,8 +46,7 @@ public class ImageUrlBase64ConvertUitl {
 			inStream.close();
 			byte[] data = outStream.toByteArray();
 			// 对字节数组Base64编码
-			BASE64Encoder encoder = new BASE64Encoder();
-			String base64 = encoder.encode(data);
+			String base64 = new String(Base64.getEncoder().encode(data));
 //			System.out.println("网络文件[{}]编码成base64字符串:[{}]" + url.toString() + base64);
 			return base64;// 返回Base64编码过的字节数组字符串
 		} catch (IOException e) {
@@ -54,6 +54,9 @@ public class ImageUrlBase64ConvertUitl {
 			throw new Exception("图片上传失败,请联系客服!");
 		}
 	}
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws Exception {
+		System.out.println(
+				encodeImageToBase64("http://123.56.22.39:48080/upload/face/ef1c34fc-7ae9-4acc-b715-0c621d46f697.jpg"));
 	}
 }
