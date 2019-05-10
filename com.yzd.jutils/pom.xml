@@ -161,6 +161,21 @@
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
             <version>1.2.0</version>
         </dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-data-couchbase</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.7.2</version>
+		</dependency>
+		 <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.29</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
