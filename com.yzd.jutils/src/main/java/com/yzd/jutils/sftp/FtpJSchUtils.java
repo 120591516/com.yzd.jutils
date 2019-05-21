@@ -1,14 +1,18 @@
 package com.yzd.jutils.sftp;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.jcraft.jsch.Channel;
@@ -26,25 +30,25 @@ public class FtpJSchUtils {
 	private static ChannelSftp sftp = null;
 
 	// 账号
-	// private static String username = "llvision";
-	// // 主机ip
-	// private static String host = "123.56.22.39";
-	// // 密码
-	// private static String password = "llvision@test";
-	// // 端口
-	// private static int port = 22;
+	private static String username = "llvision";
+	// 主机ip
+	private static String host = "123.56.22.39";
+	// 密码
+	private static String password = "llvision@test";
+	// 端口
+	private static int port = 22;
 	// ftp服务器地址
-	@Value("${hostname}")
-	private String host;
-	// sftp服务器端口号默认为22
-	@Value("${port}")
-	private Integer port;
-	// ftp登录账号
-	@Value("${ftpUserName}")
-	private String username;
-	// ftp登录密码
-	@Value("${ftpPassword}")
-	private String password;
+	// @Value("${hostname}")
+	// private String host;
+	// // sftp服务器端口号默认为22
+	// @Value("${port}")
+	// private Integer port;
+	// // ftp登录账号
+	// @Value("${ftpUserName}")
+	// private String username;
+	// // ftp登录密码
+	// @Value("${ftpPassword}")
+	// private String password;
 	private static Session sshSession = null;
 
 	// 连接sftp服务器
@@ -198,14 +202,114 @@ public class FtpJSchUtils {
 		}
 	}
 
-	public static void main(String[] args) {
-		FtpJSchUtils ftpJSchUtils = new FtpJSchUtils();
+	/**
+	 * 判断目录是否存在
+	 */
+	public boolean isDirExist(String directory) {
+		boolean isDirExistFlag = false;
 		try {
-			ftpJSchUtils.wirteContentToFile("/home/llvision", "/record/test1", "test.json", "adminmadadawdada");
-			ftpJSchUtils.upload("D://test.png", "/home/llvision/record/test", "test.png");
+			SftpATTRS sftpATTRS = sftp.lstat(directory);
+			isDirExistFlag = true;
+			return sftpATTRS.isDir();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (e.getMessage().toLowerCase().equals("no such file")) {
+				isDirExistFlag = false;
+			}
 		}
+		return isDirExistFlag;
+	}
+
+	/**
+	 * 创建一个文件目录
+	 * 
+	 * @throws Exception
+	 */
+	public void createDir(String createpath, ChannelSftp sftp) throws Exception {
+	  try {
+	   if (isDirExist(createpath)) {
+	    this.sftp.cd(createpath); 
+	    return;
+	   }
+	   String pathArry[] = createpath.split("/");
+	   StringBuffer filePath = new StringBuffer("/");
+	   for (String path : pathArry) {
+	    if (path.equals("")) {
+	     continue;
+	    }
+	    filePath.append(path + "/");
+	    if (isDirExist(filePath.toString())) {
+	     sftp.cd(filePath.toString());
+	    } else {
+	     // 建立目录
+	     sftp.mkdir(filePath.toString());
+	     // 进入并设置为当前目录
+	     sftp.cd(filePath.toString());
+	    }
+	   }
+	   this.sftp.cd(createpath);
+	  } catch (SftpException e) {
+			throw new Exception("创建路径错误：" + createpath);
+	  }
+	}
+
+	public boolean createDir(String createPath) {
+		try {
+			if (isDirExist(createPath)) {
+				sftp.cd(createPath);
+				return true;
+			}
+			String pathArry[] = createPath.split("/");
+			StringBuffer filePath = new StringBuffer("/");
+			for (String path : pathArry) {
+				if (path.equals("")) {
+					continue;
+				}
+				filePath.append(path + "/");
+				if (isDirExist(filePath.toString())) {
+					sftp.cd(filePath.toString());
+				} else {
+					// 建立目录
+					sftp.mkdir(filePath.toString());
+					// 进入并设置为当前目录
+					sftp.cd(filePath.toString());
+				}
+			}
+		} catch (SftpException e) {
+		}
+		return false;
+	}
+
+	public boolean upload(String remotePath, String fileName, InputStream in) {
+		try {
+			createDir(remotePath);
+			sftp.cd(remotePath);
+			sftp.put(in, fileName, ChannelSftp.RESUME);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+
+
+	public static void main(String[] args) throws Exception {
+		FtpJSchUtils ftpJSchUtils = new FtpJSchUtils();
+		ftpJSchUtils.initFtpClient();
+		String num = UUID.randomUUID().toString();
+		String fileName = num + ".jpg";
+		String filePath = "/upload/record/face/";
+		String newSourcePicBase64 = FileBase64ConvertUitl
+				.encodeBase64File("D:/测试照片/93fb69e0-5c57-4ab5-bb28-131c006a3dd6.jpg");
+		byte[] decode = Base64.getDecoder().decode(newSourcePicBase64);
+		InputStream input = new ByteArrayInputStream(decode);
+		ftpJSchUtils.upload(filePath, fileName, input);
 	}
 }
