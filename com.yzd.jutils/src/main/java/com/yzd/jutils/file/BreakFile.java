@@ -13,7 +13,7 @@ public class BreakFile {
 
 	public static void getRow() {
 		try {
-			FileReader read = new FileReader("E:/backup/backup");
+			FileReader read = new FileReader("E:/backup/tomcat8-stdout.2019-05-15.log");
 			BufferedReader br = new BufferedReader(read);
 			String row;
 			int rownum = 1;
@@ -32,7 +32,7 @@ public class BreakFile {
 	public static void cuttingFile() {
 		
 		try {
-			FileReader read = new FileReader("E:/backup/backup");
+			FileReader read = new FileReader("E:/backup/tomcat8-stdout.2019-05-15.log");
 			BufferedReader br = new BufferedReader(read);
 			String row;
 
