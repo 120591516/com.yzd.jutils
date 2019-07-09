@@ -19,15 +19,15 @@ import java.util.concurrent.*;
  * Created by lifan on 2019/6/26.
  */
 @Service
-public class Llvison00061RecordService {
+public class Llvison00062RecordService {
     private static final Logger log = LoggerFactory.getLogger("");
 
     @Value("${similarityNum}")
     private int similarityNum;
-    @Value("${llvision00061.ipAddress}")
-    private String llvision00061OneIpAddress;
-    @Value("${llvision00061.ipAddress}")
-    private String llvision00061TwoIpAddress;
+    @Value("${llvision00062.ipAddress}")
+    private String llvision00062OneIpAddress;
+    @Value("${llvision00062.ipAddress}")
+    private String llvision00062TwoIpAddress;
     public String faceRecord(Integer userId, String token, String results, String sourcePicBase64,String bgImageId,String longitude, String latitude,
                              HttpServletRequest request, String cardNo, String cardCode, String landmarkJSON) throws Exception {
         long startTime = System.currentTimeMillis();
@@ -41,8 +41,8 @@ public class Llvison00061RecordService {
             // 无识别结果时
             ExecutorService pool = Executors.newFixedThreadPool(5);
             CompletionService<JSONObject> cService = new ExecutorCompletionService<JSONObject>(pool);
-            cService.submit(new Llvision00061OneService(similarityNum,sourcePicBase64,landmarkJSON,llvision00061OneIpAddress));
-            cService.submit(new Llvision00061TwoService(similarityNum,sourcePicBase64,landmarkJSON,llvision00061TwoIpAddress));
+            cService.submit(new Llvision00062OneService(similarityNum,sourcePicBase64,landmarkJSON, llvision00062OneIpAddress));
+            cService.submit(new Llvision00062TwoService(similarityNum,sourcePicBase64,landmarkJSON, llvision00062TwoIpAddress));
             Future<JSONObject> future = cService.take();
             JSONObject result = future.get();
             System.out.println("method:" + result);

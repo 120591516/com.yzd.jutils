@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-public class Llvision00061TwoService implements Callable<JSONObject> {
+public class Llvision00062OneService implements Callable<JSONObject> {
     private Logger log = Logger.getLogger("");
     private int similarityNum;
     private String sourcePicBase64;
@@ -17,7 +17,7 @@ public class Llvision00061TwoService implements Callable<JSONObject> {
     private String queryPathLandMark = "/api/v1/identification/landmark";
     private String ipAddress = "http://10.33.48.53";
 
-    public Llvision00061TwoService(int similarityNum, String sourcePicBase64, String landmarkJSON, String ipAddress) {
+    public Llvision00062OneService(int similarityNum, String sourcePicBase64, String landmarkJSON, String ipAddress) {
         this.similarityNum = similarityNum;
         this.sourcePicBase64 = sourcePicBase64;
         this.landmarkJSON = landmarkJSON;
@@ -33,11 +33,12 @@ public class Llvision00061TwoService implements Callable<JSONObject> {
         commonParam.put("number", "1-1-1-1");
         return commonParam;
     }
+
     @Override
     public JSONObject call() throws Exception {
         String landmarkResult = compareFaceLandmark(sourcePicBase64, landmarkJSON);
         JSONObject result = new JSONObject();
-        result.put("flag","landmark2");
+        result.put("flag","landmark1");
         result.put("data",JSON.parseArray(landmarkResult));
         //添加返回结果标识
         return result;

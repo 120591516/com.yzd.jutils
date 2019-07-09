@@ -1,17 +1,8 @@
 package com.yzd.jutils.db;
 
-import java.io.FileOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import sun.misc.BASE64Encoder;
+
+import java.sql.*;
 
 public class OpSqliteDB {
 
@@ -49,26 +40,17 @@ public class OpSqliteDB {
 	public static void func1(Connection connection) throws Exception {
 		OpMysqlDB mysqlDB = new OpMysqlDB();
         Statement statement = connection.createStatement();
-        Statement statement1 = connection.createStatement();
         statement.setQueryTimeout(30); // set timeout to 30 sec.
         // 执行查询语句
 
-		FileOutputStream fos = new FileOutputStream("E:/feature.txt", true);
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         ResultSet rs = statement.executeQuery("select * from t_FacialFeature");
-		Map<String, Object> map = null;
         while (rs.next()) {
 			String col1 = rs.getString("id");
 			byte[] bytes = rs.getBytes(4);
 			System.out.println(bytes.length);
 			String feature = new BASE64Encoder().encode(bytes).replace("\r\n", "");
-			map = new HashMap<String, Object>();
 			mysqlDB.add(Integer.parseInt(col1), feature);
-			map.put("id", col1);
-			map.put("feature", feature);
-			list.add(map);
         }
 		// true表示在文件末尾追加
-		fos.close();
     }
 }
