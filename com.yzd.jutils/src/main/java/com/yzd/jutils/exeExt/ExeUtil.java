@@ -69,7 +69,8 @@ public class ExeUtil {
 		Process process = null;
 		try {
 			// final String command = "notepad";// 记事本
-			process = runtime.exec(String.format("cmd /C start cmd.exe runAs /user:administrator %s", command));
+			process = runtime
+					.exec(String.format("cmd /C start cmd.exe runas /user:administrator java -version", command));
 		} catch (final Exception e) {
 			System.out.println("Error win exec!");
 		}
@@ -91,7 +92,7 @@ public class ExeUtil {
 		// openWindowsExe("cmd /C cmd.exe runAs /user:administrator notepad");
 		// openWindowsExeCMD("notepad");
 		// execBat("d: && cd D:/anfang/bin && startup.bat");
-		runNIRCMDByAdministrator("net start anfang");
-		// runCMDByAdministrator("");
+		// runNIRCMDByAdministrator("net start anfang");
+		runCMDByAdministrator("&& java -version");
 	}
 }
