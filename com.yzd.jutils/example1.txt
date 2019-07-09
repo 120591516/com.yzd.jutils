@@ -1,0 +1,20 @@
+ 驱动器 C 中的卷是 Windows
+ 卷的序列号是 D659-7BFB
+
+ c:\ 的目录
+
+2019/04/29  16:17    <DIR>          dog
+2019/05/05  15:55               536 HttpInstallSubmit.txt
+2018/09/03  10:32    <DIR>          inetpub
+2018/09/04  14:25    <DIR>          Intel
+2018/07/27  14:40    <DIR>          KuGou
+2018/04/12  07:38    <DIR>          PerfLogs
+2019/05/05  15:55    <DIR>          Program Files
+2019/05/18  14:25    <DIR>          Program Files (x86)
+2019/05/21  10:04    <DIR>          SWSETUP
+2018/09/04  14:26    <DIR>          Users
+2019/06/14  10:13    <DIR>          Windows
+2018/07/31  11:12                41 windows-version.txt
+2018/09/16  14:32    <DIR>          Windows.old
+               2 个文件            577 字节
+              11 个目录 53,271,695,360 可用字节

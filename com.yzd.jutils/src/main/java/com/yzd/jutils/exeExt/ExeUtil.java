@@ -47,8 +47,9 @@ public class ExeUtil {
 		try {
 //			String[] cmd = { "cmd", "/k", "D:", "cd D:/anfang/bin/", "startup.bat" };
 //			Process proc = Runtime.getRuntime().exec(cmd);
-			// process = runtime.exec(String.format("cmd /k %s", command));
-			process = runtime.exec("cmd /k cmd.exe runAs /user:administrator notepad");
+			process = runtime.exec(String.format("cmd /k %s", command));
+			// process = runtime.exec("cmd /k cmd.exe runAs /user:administrator
+			// notepad");
 		} catch (final Exception e) {
 			System.out.println("Error win exec!");
 		}
@@ -73,11 +74,24 @@ public class ExeUtil {
 			System.out.println("Error win exec!");
 		}
 	}
+
+	// 需要将windows的系统通知调到最低
+	public static void runNIRCMDByAdministrator(final String command) {
+		final Runtime runtime = Runtime.getRuntime();
+		Process process = null;
+		try {
+			// final String command = "notepad";// 记事本
+			process = runtime.exec(String.format("c:/nircmd.exe elevate %S", command));
+		} catch (final Exception e) {
+			System.out.println("Error win exec!");
+		}
+	}
+
 	public static void main(String[] args) {
 		// openWindowsExe("cmd /C cmd.exe runAs /user:administrator notepad");
-		openWindowsExeCMD("notepad");
-		execBat("d: && cd D:/anfang/bin && startup.bat");
-		// runCMDByAdministrator("net start anfang");
+		// openWindowsExeCMD("notepad");
+		// execBat("d: && cd D:/anfang/bin && startup.bat");
+		runNIRCMDByAdministrator("net start anfang");
 		// runCMDByAdministrator("");
 	}
 }

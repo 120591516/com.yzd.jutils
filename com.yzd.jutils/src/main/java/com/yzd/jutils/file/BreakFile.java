@@ -13,7 +13,8 @@ public class BreakFile {
 
 	public static void getRow() {
 		try {
-			FileReader read = new FileReader("E:/backup/tomcat8-stdout.2019-05-15.log");
+			FileReader read = new FileReader(
+					"E:/backup/backup1/fd1b47faace20d010010af92c24ce461458021532841145c13386a840058471c-json.log");
 			BufferedReader br = new BufferedReader(read);
 			String row;
 			int rownum = 1;
@@ -32,23 +33,24 @@ public class BreakFile {
 	public static void cuttingFile() {
 		
 		try {
-			FileReader read = new FileReader("E:/backup/tomcat8-stdout.2019-05-15.log");
+			FileReader read = new FileReader(
+					"E:/backup/backup1_3.log");
 			BufferedReader br = new BufferedReader(read);
 			String row;
 
 			int rownum = 1;
 
 			int fileNo = 1;
-			FileUtils.makefile("E:/backup/backup1/backup" + fileNo + ".log");
-			FileWriter fw = new FileWriter("E:/backup/backup1/backup" + fileNo + ".log");
+			FileUtils.makefile("E:/backup/backup1/backup1_" + fileNo + ".log");
+			FileWriter fw = new FileWriter("E:/backup/backup1/backup1_" + fileNo + ".log");
 			while ((row = br.readLine()) != null) {
 				rownum++;
 				fw.append(row + "\r\n");
 
-				if ((rownum / 304183) > (fileNo - 1)) {
+				if ((rownum / 54183) > (fileNo - 1)) {
 					fw.close();
 					fileNo++;
-					fw = new FileWriter("E:/backup/backup1/backup" + fileNo + ".log");
+					fw = new FileWriter("E:/backup/backup1/backup1_" + fileNo + ".log");
 				}
 			}
 			fw.close();
