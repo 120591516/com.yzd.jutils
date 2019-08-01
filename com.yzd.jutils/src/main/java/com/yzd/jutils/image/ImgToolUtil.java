@@ -12,16 +12,14 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -293,7 +291,7 @@ public class ImgToolUtil {
 		double maxY = Math.max(Math.max(postions[0][1], postions[1][1]), Math.max(postions[2][1], postions[3][1]));
 		int newWidth = (int) Math.ceil(maxX - minX);
 		int newHeight = (int) Math.ceil(maxY - minY);
-		BufferedImage ret = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage ret = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = ret.createGraphics();
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -420,7 +418,7 @@ public class ImgToolUtil {
 	protected static BufferedImage cornerImp(BufferedImage image, int radius) {
 		int w = image.getWidth();
 		int h = image.getHeight();
-		BufferedImage output = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage output = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 
 		Graphics2D g2 = output.createGraphics();
 		g2.setComposite(AlphaComposite.Src);
@@ -488,4 +486,36 @@ public class ImgToolUtil {
 		CENTER, BOTTOM_LEFT, BOTTOM_RIGHT, TOP_LEFT, TOP_RIGHT
 	}
 
+	public static void main(String[] args) throws  Exception{
+//		FileInputStream inputStream =new  FileInputStream("D:/测试照片/成龙.jpg");
+//		ImgToolUtil rotate = new ImgToolUtil(inputStream).rotate(30);
+//		ImgToolUtil.rotateImp(ImageIO.read(new File("D:/测试照片/成龙1.jpg")),30);
+//		BufferedImage image = rotate.getImage();
+//		FileOutputStream   fos   =   new FileOutputStream("D:/测试照片/成龙1.jpg");
+//		JPEGImageEncoder encoder   =   JPEGCodec.createJPEGEncoder(fos);
+//		encoder.encode(image);
+//		fos.close();
+//		ImageIO.write(image,"jpg",new File("D:/测试照片/成龙2.jpg"));
+		//旋转
+//		ImageIO.write(ImgToolUtil.rotateImp(ImageIO.read(new File("D:/测试照片/成龙.jpg")),90),"jpg",new File("D:/测试照片/成龙3.jpg"));
+		//制作圆角图片（适合圆角头像啥的）
+//		ImageIO.write(ImgToolUtil.cornerImp(ImageIO.read(new File("D:/测试照片/成龙.jpg")),13),"jpg",new File("D:/测试照片/圆角裁剪.jpg"));
+//		long start = System.currentTimeMillis();
+//		FileInputStream inputStream =new  FileInputStream("D:/测试照片/成龙.jpg");
+//		ImgToolUtil rotate = new ImgToolUtil(inputStream).cut(30,10,60,60);
+//		rotate.save("D:/测试照片/裁剪.jpg");
+//		long end = System.currentTimeMillis();
+//		System.out.println((end - start));
+		long start = System.currentTimeMillis();
+		BufferedImage read = ImageIO.read(new File("D:/测试照片/成龙.jpg"));
+		long readEnd = System.currentTimeMillis();
+		System.out.println("readEnd - start"+(readEnd - start));
+		BufferedImage subimage = read.getSubimage(30, 10, 60, 60);
+		long cutEnd = System.currentTimeMillis();
+		System.out.println("cutEnd - start"+(cutEnd - readEnd));
+		ImageIO.write(ImageIO.read(new File("D:/测试照片/成龙.jpg")).getSubimage(30,10,60,60),"jpg",new File("D:/测试照片/裁剪1.jpg"));
+		long end = System.currentTimeMillis();
+		System.out.println((end - start));
+
+	}
 }
