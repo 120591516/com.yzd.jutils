@@ -62,8 +62,8 @@ public class ExeUtil {
 	 * 
 	 * Runtime.getRuntime().exec("cmd /C cmd.exe runAs /user:administrator notepad");
 	 * 
-	 * @param args
 	 */
+
 	public static void runCMDByAdministrator(final String command) {
 		final Runtime runtime = Runtime.getRuntime();
 		Process process = null;

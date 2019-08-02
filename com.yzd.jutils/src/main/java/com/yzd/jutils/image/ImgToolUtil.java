@@ -14,12 +14,15 @@ import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.io.*;
 import java.net.URL;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import com.yzd.jutils.encrypt.BASE64;
+import com.yzd.jutils.file.FileBase64ConvertUitl;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -506,16 +509,26 @@ public class ImgToolUtil {
 //		rotate.save("D:/测试照片/裁剪.jpg");
 //		long end = System.currentTimeMillis();
 //		System.out.println((end - start));
-		long start = System.currentTimeMillis();
-		BufferedImage read = ImageIO.read(new File("D:/测试照片/成龙.jpg"));
-		long readEnd = System.currentTimeMillis();
-		System.out.println("readEnd - start"+(readEnd - start));
-		BufferedImage subimage = read.getSubimage(30, 10, 60, 60);
-		long cutEnd = System.currentTimeMillis();
-		System.out.println("cutEnd - start"+(cutEnd - readEnd));
-		ImageIO.write(ImageIO.read(new File("D:/测试照片/成龙.jpg")).getSubimage(30,10,60,60),"jpg",new File("D:/测试照片/裁剪1.jpg"));
-		long end = System.currentTimeMillis();
-		System.out.println((end - start));
-
-	}
+//        long start = System.currentTimeMillis();
+//		BufferedImage read = ImageIO.read(new File("D:/测试照片/成龙.jpg"));
+//		long readEnd = System.currentTimeMillis();
+//		System.out.println("readEnd - start"+(readEnd - start));
+//		BufferedImage subimage = read.getSubimage(30, 10, 60, 60);
+//		long cutEnd = System.currentTimeMillis();
+//		System.out.println("cutEnd - start"+(cutEnd - readEnd));
+//		ImageIO.write(ImageIO.read(new File("D:/测试照片/成龙.jpg")).getSubimage(30,10,60,60),"jpg",new File("D:/测试照片/裁剪1.jpg"));
+//		long end = System.currentTimeMillis();
+//		System.out.println((end - start));
+        String encodeBase64File = FileBase64ConvertUitl.encodeBase64File("D:/测试照片/成龙.jpg");
+        long start = System.currentTimeMillis();
+        byte[] decode = Base64.getDecoder().decode(encodeBase64File);
+//        ByteArrayInputStream in = new ByteArrayInputStream(decode);//将b作为输入流；
+        InputStream sbs = new ByteArrayInputStream(decode);
+        BufferedImage image = ImageIO.read(sbs);//将in作为输入流，读取图片存入image中，而这里in可以为ByteArrayInputStream();
+        long readEnd = System.currentTimeMillis();
+        System.out.println("readEnd - start>>>>"+(readEnd - start));
+        BufferedImage subimage = image.getSubimage(30, 10, 60, 60);
+        long cutEnd = System.currentTimeMillis();
+		System.out.println("cutEnd - start>>>"+(cutEnd - readEnd));
+    }
 }

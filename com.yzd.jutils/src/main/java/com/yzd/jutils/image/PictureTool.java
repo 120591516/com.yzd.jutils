@@ -26,13 +26,15 @@ public class PictureTool {
     protected static Logger logger = LoggerFactory.getLogger(PictureTool.class);
 
     public static void main(String[] args) throws IOException {
-
-        File fileOne = new File("c:\\1.jpg");
+        long start = System.currentTimeMillis();
+        File fileOne = new File("D:/测试照片/成龙.jpg");
         BufferedImage imageFirst = ImageIO.read(fileOne);
 
         int border = 0;
 
-        imageFirst =crop(imageFirst,0,10,297,300);
+        imageFirst =crop(imageFirst,30,10,60,60);
+        long end = System.currentTimeMillis();
+        System.out.println("(end - start)"+(end - start));
         File outFile = new File("d:\\2.jpg");
         ImageIO.write(imageFirst, "jpg", outFile);// 写图片
 
