@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 public class UnicodeUtils {
 	
 	public static String unicodeToString(String unicodeStr){
-		String str = null;
+		String str = unicodeStr;
 		if (StringUtils.isNotEmpty(unicodeStr)) {
 			Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
 			Matcher matcher = pattern.matcher(unicodeStr);
@@ -24,5 +24,9 @@ public class UnicodeUtils {
 			}
 		}
 		return str;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(unicodeToString("\\u8BA1\\u7B97\\u673A\\u5B66\\u9662a--aaaa\\u8F6F\\u4EF6\\u4E00\\u73ED"));
 	}
 }
