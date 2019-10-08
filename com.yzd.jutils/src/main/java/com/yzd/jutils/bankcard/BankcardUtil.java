@@ -112,7 +112,7 @@ public class BankcardUtil {
 //        https://github.com/yaozd/java-generator
 //        各种随机生成器，包括身份证号码，银行卡号，姓名，手机号，电子邮箱地址等
 //        ```
-        //TODO  随机生成一个银行卡卡号
+        // 随机生成一个银行卡卡号
         //String cardNumber = "6228 4828 9820 3884 767";
         //String cardNumber = "6228 2017 0216 1025 019";
         T2();
